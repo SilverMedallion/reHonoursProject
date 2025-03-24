@@ -98,6 +98,9 @@ void ANetworkedTimeShooterCharacter::Move(const FInputActionValue& Value)
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
+	//Fvector so can be accessed in animation blueprint to be cached
+	PlayerDirection = Value.Get<FVector>();
+
 	if (Controller != nullptr)
 	{
 		// find out which way is forward
