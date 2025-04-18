@@ -22,8 +22,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void AddToDataArray(const FString InputData);
 
-private:
+
 	TArray<FString> data; 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int TotalHeadshots = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int TotalBodyshots = 0;
+
 
 	
 };
