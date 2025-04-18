@@ -17,7 +17,7 @@ class NETWORKEDTIMESHOOTER_API UDataTrackingSubsystem : public UGameInstanceSubs
 public:
 
 	UFUNCTION(BlueprintCallable, Category = "Liam Laverty|1 - Write File")
-		 void WriteToFile(FString FilePath, bool& bOutputSuccessful, FString& OutInfoMessage); 
+		 void WriteToFile(); 
 
 	UFUNCTION(BlueprintCallable)
 		void AddToDataArray(const FString InputData);
