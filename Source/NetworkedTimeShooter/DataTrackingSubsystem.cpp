@@ -6,9 +6,14 @@
 void UDataTrackingSubsystem::WriteToFile()
 {
 
-    AddToDataArray("total headshots: " + TotalHeadshots);
-    AddToDataArray("total bodyshots: " + TotalBodyshots);
+    /*
+    AddToDataArray("total shots fired: " + FString::FromInt(TotalShotsFired));
+    AddToDataArray("total headshots: " + FString::FromInt(TotalHeadshots));
+    AddToDataArray("total bodyshots: " + FString::FromInt(TotalBodyshots));
+    */
 
+    AddToDataArray("TotalShotsFired,TotalHeadshots,TotalBodyshots");
+    AddToDataArray(FString::Printf(TEXT("%d,%d,%d"), TotalShotsFired, TotalHeadshots, TotalBodyshots));
  
     // Find Results folder, if it does not exists create it
         const FString Path = FPaths::ConvertRelativePathToFull(FPaths::Combine(FPaths::ProjectSavedDir(), FString("Results")));
@@ -18,6 +23,16 @@ void UDataTrackingSubsystem::WriteToFile()
         PlatformFile.CreateDirectory(*Path);
     }
 
+    // Ensure unique file name based on date/time
+    const FString Timestamp = FDateTime::Now().ToString(TEXT("%Y-%m-%d_%H-%M-%S"));
+    const FString FileName = FString::Printf(TEXT("Round_%s.csv"), *Timestamp);
+    const FString FullPath = FPaths::Combine(Path, FileName);
+
+    FFileHelper::SaveStringArrayToFile(data, *FullPath);
+
+    ResetTrackingData();
+
+    /* OLD STUFF THAT WASN'T WORKING
     // Find the correct participant number, based on the number of files in the directory
     TArray<FString> Results;
     PlatformFile.FindFiles(Results, *Path, TEXT(".csv"));
@@ -34,7 +49,7 @@ void UDataTrackingSubsystem::WriteToFile()
 
 
     FFileHelper::SaveStringArrayToFile(data, *FullPath);
-	
+	*/
 
 	
 }
@@ -43,5 +58,30 @@ void UDataTrackingSubsystem::AddToDataArray(const FString InputData)
 {
 	data.Add(InputData + LINE_TERMINATOR);
 
+}
+
+void UDataTrackingSubsystem::RegisterFiredShot()
+{
+    TotalShotsFired++;
+}
+
+void UDataTrackingSubsystem::RegisterBodyShot()
+{
+    TotalBodyshots++;
+}
+
+void UDataTrackingSubsystem::RegisterHeadShot()
+{
+    TotalHeadshots++;
+}
+
+
+
+void UDataTrackingSubsystem::ResetTrackingData()
+{
+    TotalShotsFired = 0;
+    TotalHeadshots = 0;
+    TotalBodyshots = 0;
+    data.Empty(); // Clears previous strings if any
 }
 

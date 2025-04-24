@@ -28,7 +28,18 @@ public:
 	int TotalHeadshots = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int TotalBodyshots = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int TotalShotsFired = 0;
 
+	UFUNCTION(BlueprintCallable)
+		void RegisterFiredShot();
 
-	
+	UFUNCTION(BlueprintCallable)
+	void RegisterBodyShot();
+
+	UFUNCTION(BlueprintCallable)
+	void RegisterHeadShot();
+
+	UFUNCTION(BlueprintCallable)
+	void ResetTrackingData();
 };
