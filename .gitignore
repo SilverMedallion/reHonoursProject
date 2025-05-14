@@ -74,8 +74,8 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 #asset packs
-Megapack/*
+Content/Megapack/*
 
-StarterContent/*
+Content/StarterContent/*
 
-Survival_Character/*
+Content/Survival_Character/*
